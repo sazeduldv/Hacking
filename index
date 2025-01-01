@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hacking Your Web</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Courier New', Courier, monospace;
+            background: #000;
+            color: #0f0;
+            overflow-x: hidden;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            border-bottom: 2px solid #0f0;
+            position: relative;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            animation: flicker 1.5s infinite alternate;
+        }
+
+        header p {
+            margin-top: 10px;
+            font-size: 1.2rem;
+        }
+
+        header .mask {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 5rem;
+            opacity: 0.1;
+        }
+
+        .hacker-animation {
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        .hacker-animation canvas {
+            width: 200px;
+            height: 200px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        @keyframes flicker {
+            0% { text-shadow: 0 0 5px #0f0, 0 0 10px #0f0, 0 0 20px #0f0; }
+            100% { text-shadow: 0 0 5px #0f0; }
+        }
+
+        .matrix {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: black;
+            overflow: hidden;
+        }
+
+        .matrix canvas {
+            display: block;
+        }
+
+        #contact {
+            margin: 50px auto;
+            width: 80%;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border: 2px solid #0f0;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        #contact h2 {
+            text-align: center;
+        }
+
+        .contact-option {
+            margin: 15px 0;
+            font-size: 1.2rem;
+        }
+
+        .contact-option a {
+            color: #0f0;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .contact-option a:hover {
+            text-decoration: underline;
+        }
+
+        .emoji {
+            font-size: 3rem;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="matrix" id="matrix">
+        <canvas id="canvas"></canvas>
+    </div>
+
+    <header>
+        <h1>HACKING YOUR PANEL...</h1>
+        <p>"We see the world differently. Data is our playground, and knowledge is our power."</p>
+        <p>"Caution: Entering the realm of infinite possibilities and unseen secrets."</p>
+        <div class="mask">🎭</div>
+    </header>
+    
+    <div class="hacker-animation">
+        <canvas id="hackerCanvas2"></canvas>
+        <script>
+            const scene2 = new THREE.Scene();
+            const camera2 = new THREE.PerspectiveCamera(75, hackerCanvas2.width / hackerCanvas2.height, 0.1, 1000);
+            const renderer2 = new THREE.WebGLRenderer({ canvas: hackerCanvas2, alpha: true });
+            renderer2.setSize(hackerCanvas2.width, hackerCanvas2.height);
+
+            const geometry2 = new THREE.SphereGeometry();
+            const material2 = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+            const sphere = new THREE.Mesh(geometry2, material2);
+            scene2.add(sphere);
+
+            camera2.position.z = 5;
+
+            const animate2 = () => {
+                requestAnimationFrame(animate2);
+
+                sphere.rotation.x += 0.01;
+                sphere.rotation.y += 0.01;
+
+                renderer2.render(scene2, camera2);
+            };
+
+            animate2();
+        </script>
+        <p>The Hacker is watching... Always stay alert!</p>
+    </div></div>
+
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <div class="contact-option">
+            📧 Email: <a href="mailto:support@example.com">support@example.com</a>
+        </div>
+        <div class="contact-option">
+            📞 Phone: <a href="tel:+1234567890">+880000000000</a>
+        </div>
+        <div class="contact-option">
+            📍 Address: Bogura,BD
+        </div>
+        <div class="contact-option">
+            🔗 Telegram: <a href="https://t.me/Mr_Fixer_King" target="_blank">@sazedul</a>
+        </div>
+        <div class="emoji">💻 🛠️ 🔒</div>
+    </section>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const columns = canvas.width / 15;
+        const drops = Array.from({ length: columns }, () => 1);
+
+        const drawMatrix = () => {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#0f0';
+            ctx.font = '15px monospace';
+
+            drops.forEach((y, i) => {
+                const text = String.fromCharCode(0x30A0 + Math.random() * 96);
+                ctx.fillText(text, i * 15, y * 15);
+
+                if (y * 15 > canvas.height || Math.random() > 0.95) {
+                    drops[i] = 0;
+                }
+
+                drops[i]++;
+            });
+
+            requestAnimationFrame(drawMatrix);
+        };
+
+        drawMatrix();
+
+        // Hacker Animation
+        const hackerCanvas = document.getElementById('hackerCanvas');
+        const hackerCtx = hackerCanvas.getContext('2d');
+
+        hackerCanvas.width = 200;
+        hackerCanvas.height = 200;
+
+        let angle = 0;
+
+        const drawHackerAnimation = () => {
+            hackerCtx.clearRect(0, 0, hackerCanvas.width, hackerCanvas.height);
+
+            hackerCtx.save();
+            hackerCtx.translate(hackerCanvas.width / 2, hackerCanvas.height / 2);
+            hackerCtx.rotate(angle);
+            hackerCtx.beginPath();
+            hackerCtx.arc(0, 0, 50, 0, Math.PI * 2);
+            hackerCtx.strokeStyle = '#0f0';
+            hackerCtx.lineWidth = 4;
+            hackerCtx.stroke();
+            hackerCtx.restore();
+
+            angle += 0.02;
+
+            requestAnimationFrame(drawHackerAnimation);
+        };
+
+        drawHackerAnimation();
+    </script>
+</body>
+</html>
